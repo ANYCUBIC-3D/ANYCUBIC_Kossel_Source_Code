@@ -1,1 +1,1 @@
-# Kossel-source-code
+# ANYCUBIC Kossel beta2
