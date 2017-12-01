@@ -1,4 +1,4 @@
-# ANYCUBIC Kossel beta2
+# ANYCUBIC Kossel beta2/ANYCUBIC Kossel PLUS beta2
 This branch based on RC 1.1.0.
 
 Before upload,confirm your version by the '.PNG' picture.
