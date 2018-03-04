@@ -151,7 +151,7 @@
 //
 // Heaters / Fans
 //
-#define FAN2_PIN     -1
+#define FAN2_PIN     44
 
 #ifndef MOSFET_D_PIN
   #define MOSFET_D_PIN  -1
