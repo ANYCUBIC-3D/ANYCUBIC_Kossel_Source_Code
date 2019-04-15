@@ -48,7 +48,7 @@
    * here we define this default string as the date where the latest release
    * version was tagged.
    */
-  #define STRING_DISTRIBUTION_DATE "2016-12-06 12:00"
+  #define STRING_DISTRIBUTION_DATE "2019-4-15 12:00"
 
   /**
    * Required minimum Configuration.h and Configuration_adv.h file versions.
@@ -73,7 +73,7 @@
   /**
    * The SOURCE_CODE_URL is the location where users will find the Marlin Source
    * Code which is installed on the device. In most cases —unless the manufacturer
-   * has a distinct Github fork— the Source Code URL should just be the main
+   * has a distinct Github fork�?the Source Code URL should just be the main
    * Marlin repository.
    */
   #define SOURCE_CODE_URL ""
