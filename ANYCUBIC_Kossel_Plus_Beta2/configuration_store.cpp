@@ -36,10 +36,10 @@
  *
  */
 
-#define EEPROM_VERSION "V29"
+#define EEPROM_VERSION "V31"
 
 // Change EEPROM version if these are changed:
-#define EEPROM_OFFSET 100
+#define EEPROM_OFFSET 500
 
 /**
  * V29 EEPROM Layout:
@@ -282,7 +282,8 @@ void Config_Postprocess() {
     #elif ENABLED(AUTO_BED_LEVELING_LINEAR)
       if (planner.abl_enabled && ABL_grid_valid) leveling_is_on = 3;
     #elif ENABLED(AUTO_BED_LEVELING_BILINEAR)
-      if (planner.abl_enabled && ABL_grid_valid&&SaveABLdataFlag) leveling_is_on = 4;
+     // if (planner.abl_enabled && ABL_grid_valid&&SaveABLdataFlag) //2019.4.13
+	  	leveling_is_on = 4;
     #endif
     
     //
@@ -482,6 +483,8 @@ EEPROM_READ(zprobe_zoffset);
   void Config_RetrieveSettings() {
 
     uint8_t leveling_is_on = false;   // assume false unless proved otherwise (doesn't apply to MESH_BED_LEVELING)
+	//Config_ResetDefault() ; //2019.4.13
+	//Config_StoreSettings()  ;//2019.4.13
     
     EEPROM_START();
     eeprom_read_error = false; // If set EEPROM_READ won't write into RAM
@@ -591,7 +594,9 @@ EEPROM_READ(zprobe_zoffset);
       //
       // Bilinear Auto Bed Leveling
       //
-
+	  if (leveling_is_on == 4)
+	  {
+	  ABL_grid_valid = true;
       uint8_t grid_max_x, grid_max_y;
       
       EEPROM_READ(grid_max_x);                       // 1 byte
@@ -607,8 +612,8 @@ EEPROM_READ(zprobe_zoffset);
             bed_level_virt_prepare();
             bed_level_virt_interpolate();
           #endif
-          if (leveling_is_on == 4)  ABL_grid_valid = true;
-          SaveABLdataFlag=false;
+          //if (leveling_is_on == 4)  ABL_grid_valid = true;//2019.4.13
+         // SaveABLdataFlag=false;
         }
         
         else // EEPROM data is stale
@@ -620,6 +625,7 @@ EEPROM_READ(zprobe_zoffset);
           EEPROM_READ(bs);
           for (uint16_t q = grid_max_x * grid_max_y; q--;) EEPROM_READ(dummy);
         }
+    	}
 
       #if ENABLED(DELTA)
         EEPROM_READ(endstop_adj);                // 3 floats

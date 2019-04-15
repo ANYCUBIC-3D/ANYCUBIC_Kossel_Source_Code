@@ -300,7 +300,7 @@ void pauseCMDsend();
 
 bool Running = true;
 bool LevelBedFlag=false;
-bool SaveABLdataFlag=false;
+bool SaveABLdataFlag=true;//2019.4.13
 float aaaa;
 uint8_t marlin_debug_flags = DEBUG_NONE;
  //void SoftwareReset();
@@ -8784,9 +8784,9 @@ void process_next_command() {
           #if ENABLED(AUTO_BED_LEVELING_BILINEAR)
           Config_StoreSettings();
           delay(500);
-          Config_ResetDefault();
+         // Config_ResetDefault();//2019.4.13
           delay(100);
-          Config_RetrieveSettings();  
+          //Config_RetrieveSettings();  
           delay(100);
           #endif     
           break;

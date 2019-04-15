@@ -25,6 +25,7 @@
  */
 
 #include "Marlin.h"
+#include "planner.h"
 #include "ultralcd.h"
 #include "temperature.h"
 #include "thermistortables.h"
@@ -549,7 +550,7 @@ float Temperature::get_pid_output(int e) {
       }
       else {
         if (pid_reset[HOTEND_INDEX]) {
-          temp_iState[HOTEND_INDEX] = 0.0;
+          //temp_iState[HOTEND_INDEX] = 0.0;
           pid_reset[HOTEND_INDEX] = false;
         }
         pTerm[HOTEND_INDEX] = PID_PARAM(Kp, HOTEND_INDEX) * pid_error[HOTEND_INDEX];
@@ -1209,6 +1210,9 @@ void Temperature::init() {
   void Temperature::thermal_runaway_protection(Temperature::TRState* state, millis_t* timer, float temperature, float target_temperature, int heater_id, int period_seconds, int hysteresis_degc) {
 
     static float tr_target_temperature[HOTENDS + 1] = { 0.0 };
+	static char reset_temperature_mark[HOTENDS + 1] = {0};
+	   static millis_t  timer_save[HOTENDS + 1] = {0};
+	   	 millis_t  ltemp  = 0;
 
     /**
         SERIAL_ECHO_START;
@@ -1227,6 +1231,8 @@ void Temperature::init() {
     if (tr_target_temperature[heater_index] != target_temperature) {
       tr_target_temperature[heater_index] = target_temperature;
       *state = target_temperature > 0 ? TRFirstHeating : TRInactive;
+	  reset_temperature_mark[heater_index] = 1; 
+
     }
 
     switch (*state) {
@@ -1234,15 +1240,47 @@ void Temperature::init() {
       case TRInactive: break;
       // When first heating, wait for the temperature to be reached then go to Stable state
       case TRFirstHeating:
-        if (temperature < tr_target_temperature[heater_index]) break;
-        *state = TRStable;
+	  	if (temperature < tr_target_temperature[heater_index]) break;
+		 *state = TRStable;
+		 
       // While the temperature is stable watch for a bad temperature
       case TRStable:
+	  
+	  	ltemp =  millis() ;
+	  	
+		 if(temperature < tr_target_temperature[heater_index]- hysteresis_degc)
+		 	{
+			if(reset_temperature_mark[heater_index]==1 && heater_index == 0)
+				 {
+					 timer_save[heater_index] = ltemp ;  
+					 reset_temperature_mark[heater_index]=0;	
+				 }
+		    }
+			
+			
+
+							   
         if (temperature >= tr_target_temperature[heater_index] - hysteresis_degc) {
           *timer = millis() + period_seconds * 1000UL;
-          break;
+		            break;
         }
-        else if (PENDING(millis(), *timer)) break;
+		else {
+
+				if(ltemp - timer_save[heater_index]<60000||ltemp - planner.getFanChangeTime()<60000)
+		   {
+
+		    //SERIAL_PROTOCOLLN(" start delay ");			//2019.4.13		
+		   *timer = ltemp + period_seconds * 1000UL;
+		    break;
+	       }
+			if (PENDING(millis(), *timer)) break;
+
+							   
+        	}
+
+		
+
+				   
         *state = TRRunaway;
       case TRRunaway:
         _temp_error(heater_id, PSTR(MSG_T_THERMAL_RUNAWAY), PSTR(MSG_THERMAL_RUNAWAY));
