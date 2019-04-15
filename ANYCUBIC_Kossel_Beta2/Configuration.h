@@ -83,7 +83,7 @@
   // NOTE NB all values for DELTA_* values MUST be floating point, so always have a decimal point in them
 
   // Center-to-center distance of the holes in the diagonal push rods.
-  #define DELTA_DIAGONAL_ROD 218//mm
+  #define DELTA_DIAGONAL_ROD 218//mm 2019.4.13
 
   // Horizontal offset from middle of printer to smooth rod center.
 //  #define DELTA_SMOOTH_ROD_OFFSET 182// 
@@ -127,7 +127,7 @@
 // User-specified version info of this build to display in [Pronterface, etc] terminal window during
 // startup. Implementation of an idea by Prof Braino to inform user that any changes made to this
 // build by the user have been successfully uploaded into firmware.
-#define STRING_CONFIG_H_AUTHOR "(ANYCUBIC KOSSEL, 2019/03/09)" // Who made the changes.
+#define STRING_CONFIG_H_AUTHOR "(ANYCUBIC KOSSEL, 2019/4/15)" // Who made the changes.
 #define SHOW_BOOTSCREEN
 #define STRING_SPLASH_LINE1 SHORT_BUILD_VERSION // will be shown during bootup in line 1
 #define STRING_SPLASH_LINE2 WEBSITE_URL         // will be shown during bootup in line 2
@@ -267,7 +267,7 @@
  *    10 : 100k RS thermistor 198-961 (4.7k pullup)
  *    11 : 100k beta 3950 1% thermistor (4.7k pullup)
  *    12 : 100k 0603 SMD Vishay NTCS0603E3104FXT (4.7k pullup) (calibrated for Makibox hot bed)
- *    13 : 100k Hisens 3950  1% up to 300°C for hotend "Simple ONE " & "Hotend "All In ONE"
+ *    13 : 100k Hisens 3950  1% up to 300Â°C for hotend "Simple ONE " & "Hotend "All In ONE"
  *    20 : the PT100 circuit found in the Ultimainboard V2.x
  *    60 : 100k Maker's Tool Works Kapton Bed Thermistor beta=3950
  *    66 : 4.7M High Temperature thermistor from Dyze Design
@@ -285,10 +285,10 @@
  *   110 : Pt100 with 1k pullup (non standard)
  *
  *         Use these for Testing or Development purposes. NEVER for production machine.
- *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
- *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
+ *   998 : Dummy Table that ALWAYS reads 25Â°C or the temperature defined below.
+ *   999 : Dummy Table that ALWAYS reads 100Â°C or the temperature defined below.
  *
- * :{ '0': "Not used", '1':"100k / 4.7k - EPCOS", '2':"200k / 4.7k - ATC Semitec 204GT-2", '3':"Mendel-parts / 4.7k", '4':"10k !! do not use for a hotend. Bad resolution at high temp. !!", '5':"100K / 4.7k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '6':"100k / 4.7k EPCOS - Not as accurate as Table 1", '7':"100k / 4.7k Honeywell 135-104LAG-J01", '8':"100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT", '9':"100k / 4.7k GE Sensing AL03006-58.2K-97-G1", '10':"100k / 4.7k RS 198-961", '11':"100k / 4.7k beta 3950 1%", '12':"100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT (calibrated for Makibox hot bed)", '13':"100k Hisens 3950  1% up to 300°C for hotend 'Simple ONE ' & hotend 'All In ONE'", '20':"PT100 (Ultimainboard V2.x)", '51':"100k / 1k - EPCOS", '52':"200k / 1k - ATC Semitec 204GT-2", '55':"100k / 1k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '60':"100k Maker's Tool Works Kapton Bed Thermistor beta=3950", '66':"Dyze Design 4.7M High Temperature thermistor", '70':"the 100K thermistor found in the bq Hephestos 2", '71':"100k / 4.7k Honeywell 135-104LAF-J01", '147':"Pt100 / 4.7k", '1047':"Pt1000 / 4.7k", '110':"Pt100 / 1k (non-standard)", '1010':"Pt1000 / 1k (non standard)", '-3':"Thermocouple + MAX31855 (only for sensor 0)", '-2':"Thermocouple + MAX6675 (only for sensor 0)", '-1':"Thermocouple + AD595",'998':"Dummy 1", '999':"Dummy 2" }
+ * :{ '0': "Not used", '1':"100k / 4.7k - EPCOS", '2':"200k / 4.7k - ATC Semitec 204GT-2", '3':"Mendel-parts / 4.7k", '4':"10k !! do not use for a hotend. Bad resolution at high temp. !!", '5':"100K / 4.7k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '6':"100k / 4.7k EPCOS - Not as accurate as Table 1", '7':"100k / 4.7k Honeywell 135-104LAG-J01", '8':"100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT", '9':"100k / 4.7k GE Sensing AL03006-58.2K-97-G1", '10':"100k / 4.7k RS 198-961", '11':"100k / 4.7k beta 3950 1%", '12':"100k / 4.7k 0603 SMD Vishay NTCS0603E3104FXT (calibrated for Makibox hot bed)", '13':"100k Hisens 3950  1% up to 300Â°C for hotend 'Simple ONE ' & hotend 'All In ONE'", '20':"PT100 (Ultimainboard V2.x)", '51':"100k / 1k - EPCOS", '52':"200k / 1k - ATC Semitec 204GT-2", '55':"100k / 1k - ATC Semitec 104GT-2 (Used in ParCan & J-Head)", '60':"100k Maker's Tool Works Kapton Bed Thermistor beta=3950", '66':"Dyze Design 4.7M High Temperature thermistor", '70':"the 100K thermistor found in the bq Hephestos 2", '71':"100k / 4.7k Honeywell 135-104LAF-J01", '147':"Pt100 / 4.7k", '1047':"Pt1000 / 4.7k", '110':"Pt100 / 1k (non-standard)", '1010':"Pt1000 / 1k (non standard)", '-3':"Thermocouple + MAX31855 (only for sensor 0)", '-2':"Thermocouple + MAX6675 (only for sensor 0)", '-1':"Thermocouple + AD595",'998':"Dummy 1", '999':"Dummy 2" }
  */
 #define TEMP_SENSOR_0 1
 #define TEMP_SENSOR_1 0
@@ -340,7 +340,7 @@
 
 // Comment the following line to disable PID and enable bang-bang.
 #define PIDTEMP
-#define BANG_MAX 255 // limits current to nozzle while in bang-bang mode; 255=full current
+#define BANG_MAX 250 // limits current to nozzle while in bang-bang mode; 255=full current
 #define PID_MAX BANG_MAX // limits current to nozzle while PID is active (see PID_FUNCTIONAL_RANGE below); 255=full current
 #if ENABLED(PIDTEMP)
   //#define PID_AUTOTUNE_MENU // Add PID Autotune to the LCD "Temperature" menu to run M303 and apply the result.
@@ -349,7 +349,7 @@
   //#define SLOW_PWM_HEATERS // PWM with very low frequency (roughly 0.125Hz=8s) and minimum state time of approximately 1s useful for heaters driven by a relay
   //#define PID_PARAMS_PER_HOTEND // Uses separate PID parameters for each extruder (useful for mismatched extruders)
                                   // Set/get with gcode: M301 E[extruder number, 0-2]
-  #define PID_FUNCTIONAL_RANGE 10 // If the temperature difference between the target temperature and the actual temperature
+  #define PID_FUNCTIONAL_RANGE 15 // If the temperature difference between the target temperature and the actual temperature
                                   // is more than PID_FUNCTIONAL_RANGE then the PID will be shut off and the heater will be set to min/max.
   #define K1 0.95 //smoothing factor within the PID
 
@@ -357,7 +357,7 @@
   // Ultimaker
   #define  DEFAULT_Kp 22.2
   #define  DEFAULT_Ki 1.08
-  #define  DEFAULT_Kd 114
+  #define  DEFAULT_Kd 200
 
   // MakerGear
   //#define  DEFAULT_Kp 7.0
@@ -625,12 +625,12 @@
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Z offset: -below +above  [the nozzle]
 
 // X and Y axis travel speed (mm/m) between probes
-#define XY_PROBE_SPEED 6000
+#define XY_PROBE_SPEED 4000
 // Speed for the first approach when double-probing (with PROBE_DOUBLE_TOUCH)
 #define Z_PROBE_SPEED_FAST HOMING_FEEDRATE_Z
 // Speed for the "accurate" probe of each point
 //#define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
-#define Z_PROBE_SPEED_SLOW Z_PROBE_SPEED_FAST 
+#define Z_PROBE_SPEED_SLOW Z_PROBE_SPEED_FAST/2   //2019.4.13
 // Use double touch for probing
 //#define PROBE_DOUBLE_TOUCH
 
@@ -824,18 +824,13 @@
  *   The result is a single tilted plane. Best for a flat bed.
  *
  * - LINEAR* 
- * - 线性
- * 调查几个点在网格中。
- * 你指定矩形和采样点的密度。
- *   Probe several points in a grid.
+ * - çº¿æ€? * è°ƒæŸ¥å‡ ä¸ªç‚¹åœ¨ç½‘æ ¼ä¸­ã€? * ä½ æŒ‡å®šçŸ©å½¢å’Œé‡‡æ ·ç‚¹çš„å¯†åº¦ã€? *   Probe several points in a grid.
  *   You specify the rectangle and the density of sample points.
  *   The result is a single tilted plane. Best for a flat bed.
  *
  * - BILINEAR
- * *——双线性 DELTA
-*调查几个点在网格中。
-*你指定矩形和采样点的密度。
- *   Probe several points in a grid.
+ * *â€”â€”åŒçº¿æ€?DELTA
+*è°ƒæŸ¥å‡ ä¸ªç‚¹åœ¨ç½‘æ ¼ä¸­ã€?*ä½ æŒ‡å®šçŸ©å½¢å’Œé‡‡æ ·ç‚¹çš„å¯†åº¦ã€? *   Probe several points in a grid.
  *   You specify the rectangle and the density of sample points.
  *   The result is a mesh, best for large or uneven beds.
  */
@@ -940,7 +935,7 @@
 #endif
 
 // Delta only homes to Z
-#define HOMING_FEEDRATE_Z  (60*60)
+#define HOMING_FEEDRATE_Z  (40*40)
 
 
 //=============================================================================
