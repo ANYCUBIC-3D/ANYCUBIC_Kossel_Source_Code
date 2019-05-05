@@ -161,7 +161,7 @@
  * M250 - Set LCD contrast: "M250 C<contrast>" (0-63). (Requires LCD support)
  * M260 - i2c Send Data (Requires EXPERIMENTAL_I2CBUS)
  * M261 - i2c Request Data (Requires EXPERIMENTAL_I2CBUS)
- * M280 - Set servo position absolute: "M280 P<index> S<angle|µs>". (Requires servos)
+ * M280 - Set servo position absolute: "M280 P<index> S<angle|Âµs>". (Requires servos)
  * M300 - Play beep sound S<frequency Hz> P<duration ms>
  * M301 - Set PID parameters P I and D. (Requires PIDTEMP)
  * M302 - Allow cold extrudes, or set the minimum extrude S<temperature>. (Requires PREVENT_COLD_EXTRUSION)
@@ -2500,7 +2500,7 @@ static void clean_up_after_endstop_or_probe_move() {
     //                                : ((c < b) ? b : (a < c) ? a : c);
   }
 
-  //Enable this if your SCARA uses 180° of total area
+  //Enable this if your SCARA uses 180Â° of total area
   //#define EXTRAPOLATE_FROM_EDGE
 
   #if ENABLED(EXTRAPOLATE_FROM_EDGE)
@@ -4656,7 +4656,7 @@ inline void gcode_G28() {
 
 inline void gcode_G33() { 
   enqueue_and_echo_commands_P(PSTR("G28"));
-  Config_StoreSettings;
+  Config_StoreSettings();
   }
 
 #if ENABLED(G38_PROBE_TARGET)
@@ -6659,7 +6659,7 @@ inline void gcode_M204() {
  *
  *    S = Min Feed Rate (units/s)
  *    T = Min Travel Feed Rate (units/s)
- *    B = Min Segment Time (µs)
+ *    B = Min Segment Time (Âµs)
  *    X = Max X Jerk (units/sec^2)
  *    Y = Max Y Jerk (units/sec^2)
  *    Z = Max Z Jerk (units/sec^2)
@@ -10912,16 +10912,16 @@ void stop() {
  *  - Print startup messages and diagnostics
  *  - Get EEPROM or default settings
  *  - Initialize managers for:
- *    �?temperature
- *    �?planner
- *    �?watchdog
- *    �?stepper
- *    �?photo pin
- *    �?servos
- *    �?LCD controller
- *    �?Digipot I2C
- *    �?Z probe sled
- *    �?status LEDs
+ *    â?temperature
+ *    â?planner
+ *    â?watchdog
+ *    â?stepper
+ *    â?photo pin
+ *    â?servos
+ *    â?LCD controller
+ *    â?Digipot I2C
+ *    â?Z probe sled
+ *    â?status LEDs
  */
 void setup() {
 
