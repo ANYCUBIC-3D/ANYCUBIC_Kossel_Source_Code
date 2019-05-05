@@ -4656,7 +4656,7 @@ inline void gcode_G28() {
 
 inline void gcode_G33() { 
   enqueue_and_echo_commands_P(PSTR("G28"));
-  Config_StoreSettings;
+  Config_StoreSettings();
   }
 
 #if ENABLED(G38_PROBE_TARGET)
