@@ -1173,9 +1173,13 @@ void Temperature::init() {
     if (degHotend(HOTEND_INDEX) < degTargetHotend(HOTEND_INDEX) - (WATCH_TEMP_INCREASE + TEMP_HYSTERESIS + 1)) {
       watch_target_temp[HOTEND_INDEX] = degHotend(HOTEND_INDEX) + WATCH_TEMP_INCREASE;
       watch_heater_next_ms[HOTEND_INDEX] = millis() + (WATCH_TEMP_PERIOD) * 1000UL;
+	  //SERIAL_PROTOCOLLN(" *** watching heat up ************* ");
     }
     else
-      watch_heater_next_ms[HOTEND_INDEX] = 0;
+    	{
+    	//SERIAL_PROTOCOLLN(" *** heat up over ************* ");
+         watch_heater_next_ms[HOTEND_INDEX] = 0;
+    	}
   }
 #endif
 
@@ -1240,6 +1244,8 @@ void Temperature::init() {
       case TRInactive: break;
       // When first heating, wait for the temperature to be reached then go to Stable state
       case TRFirstHeating:
+	  
+	  	if (temperature >= (tr_target_temperature[heater_index]- (WATCH_TEMP_INCREASE + TEMP_HYSTERESIS + 1)))watch_heater_next_ms[HOTEND_INDEX] = 0;
 	  	if (temperature < tr_target_temperature[heater_index]) break;
 		 *state = TRStable;
 		 
@@ -1248,14 +1254,16 @@ void Temperature::init() {
 	  
 	  	ltemp =  millis() ;
 	  	
-		 if(temperature < tr_target_temperature[heater_index]- hysteresis_degc)
-		 	{
+           if (temperature < tr_target_temperature[heater_index] ) {
 			if(reset_temperature_mark[heater_index]==1 && heater_index == 0)
 				 {
-					 timer_save[heater_index] = ltemp ;  
-					 reset_temperature_mark[heater_index]=0;	
+					 timer_save[heater_index] = ltemp +100000;  
+					 reset_temperature_mark[heater_index]=0;
+					//SERIAL_PROTOCOL(" start delay ");	SERIAL_PROTOCOL(timer_save[heater_index]/1000)		;SERIAL_PROTOCOL("\r\n");	
 				 }
-		    }
+				 
+}
+
 			
 			
 
@@ -1264,23 +1272,25 @@ void Temperature::init() {
           *timer = millis() + period_seconds * 1000UL;
 		            break;
         }
-		else {
+        else{
 
-				if(ltemp - timer_save[heater_index]<60000||ltemp - planner.getFanChangeTime()<60000)
+			if(ltemp < timer_save[heater_index]||ltemp - planner.getFanChangeTime()<60000)
 		   {
-
-		    //SERIAL_PROTOCOLLN(" start delay ");			//2019.4.13		
+			 
+			 
+		   // SERIAL_PROTOCOL(" *** delay ");	SERIAL_PROTOCOL(ltemp/1000)	; SERIAL_PROTOCOL("  ");SERIAL_PROTOCOL(timer_save[heater_index]/1000);SERIAL_PROTOCOL("\r\n");	
 		   *timer = ltemp + period_seconds * 1000UL;
 		    break;
 	       }
-			if (PENDING(millis(), *timer)) break;
+			if (PENDING(millis(), *timer))
+				{
+					//SERIAL_PROTOCOL(" *** ready runaway error ");	SERIAL_PROTOCOL(ltemp/1000)	; SERIAL_PROTOCOL("  ");SERIAL_PROTOCOL((*timer)/1000);SERIAL_PROTOCOL("\r\n");	
+		 
+				break;
 
-							   
+				}
+
         	}
-
-		
-
-				   
         *state = TRRunaway;
       case TRRunaway:
         _temp_error(heater_id, PSTR(MSG_T_THERMAL_RUNAWAY), PSTR(MSG_THERMAL_RUNAWAY));
