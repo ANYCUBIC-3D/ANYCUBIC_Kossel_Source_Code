@@ -7,3 +7,4 @@ Unsuitable modification or uploading may cause damage to the printer.
 
 yes
 upload
+yes
