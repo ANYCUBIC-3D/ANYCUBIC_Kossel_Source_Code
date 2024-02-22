@@ -5,5 +5,5 @@ Before upload, confirm the version of your printer by the '.PNG' picture.
 
 Unsuitable modification or uploading may cause damage to the printer.
 
-ok
 yes
+upload
